@@ -1,7 +1,11 @@
+import json
+
 import requests
 
 from config_reader import ScraperConfig
 from typing import Dict
+
+from model.api_vehicle_position import ApiVehiclePosition
 
 __author__ = 'Marcin Przepiórkowski'
 __email__ = 'mprzepiorkowski@gmail.com'
@@ -13,19 +17,24 @@ class Scraper:
     KEY_TRAM_LINE = 'busList[tram][]'
 
     def _prepare_form_data(self) -> Dict[str, str]:
-        bus = {self.KEY_BUS_LINE: line for line in self.config.bus_lines}
-        tram = {self.KEY_TRAM_LINE: line for line in self.config.tram_lines}
+        data = {}
 
-        return {**bus, **tram}
+        if self.config.bus_lines:
+            data[self.KEY_BUS_LINE] = self.config.bus_lines
+
+        if self.config.tram_lines:
+            data[self.KEY_TRAM_LINE] = self.config.tram_lines
+
+        return data
 
     def __init__(self, config: ScraperConfig):
         self._config = config
 
-    def scrape(self):
+    def fetch_positions(self) -> [ApiVehiclePosition]:
         form_data = self._prepare_form_data()
         r = requests.post(self.URL, form_data)
 
-        print(r.text)
+        return [ApiVehiclePosition(**p) for p in json.loads(r.text)]
 
     @property
     def config(self) -> ScraperConfig:
