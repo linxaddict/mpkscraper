@@ -1,12 +1,21 @@
 import time
+import pytz
 
 from json import JSONDecodeError
 
+from sqlalchemy.ext.declarative import declarative_base
+
 from config_reader import JsonConfigReader
 from model.api_vehicle_position import ApiVehiclePosition
+from model.vehicle_position import VehiclePosition
 from scraper import Scraper
 from geopy.distance import vincenty
 from datetime import datetime
+
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
+from settings import Config
 
 __author__ = 'Marcin Przepiórkowski'
 __email__ = 'mprzepiorkowski@gmail.com'
@@ -31,6 +40,24 @@ def write_to_file(position: ApiVehiclePosition, velocity: float, ts: datetime, e
 if __name__ == '__main__':
     config_reader = JsonConfigReader()
     last_positions = {}
+
+    engine = create_engine(Config.DB_URI)
+    Base = declarative_base()
+    Base.metadata.bind = engine
+
+    DBSession = sessionmaker(bind=engine)
+    session = DBSession()
+
+    vp = VehiclePosition()
+    vp.latitude = 12.1
+    vp.longitude = 14.2
+    vp.name = 'test_name'
+    vp.type = 'test_type'
+    vp.vehicle_id = 'test_id'
+    vp.timestamp = datetime.now(pytz.timezone('Europe/Warsaw'))
+
+    session.add(vp)
+    session.commit()
 
     try:
         config = config_reader.read('config.json')
@@ -74,5 +101,5 @@ if __name__ == '__main__':
             time.sleep(5)
     except FileNotFoundError:
         print('error: specified config file does not exist')
-    except JSONDecodeError:
-        print('error: unable to parse json file')
+    except JSONDecodeError as err:
+        print('error: unable to parse json file: {0}'.format(err))

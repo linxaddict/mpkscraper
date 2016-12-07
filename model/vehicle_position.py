@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, Float, String
+import datetime
+
+from sqlalchemy import Column, Integer, Float, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -17,3 +19,4 @@ class VehiclePosition(Base):
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     vehicle_id = Column(String(128), nullable=False)
+    timestamp = Column(DateTime(timezone=True), onupdate=datetime.datetime.now)
