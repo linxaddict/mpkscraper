@@ -2,8 +2,6 @@ import time
 
 import pytz
 
-from json import JSONDecodeError
-
 from sqlalchemy.ext.declarative import declarative_base
 
 from config_reader import JsonConfigReader
@@ -106,5 +104,5 @@ if __name__ == '__main__':
             time.sleep(10)
     except FileNotFoundError:
         print('error: specified config file does not exist')
-    except JSONDecodeError as err:
+    except ValueError as err:
         print('error: unable to parse json file: {0}'.format(err))
