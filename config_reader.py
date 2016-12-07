@@ -1,21 +1,20 @@
 import json
-from typing import List
 
 __author__ = 'Marcin Przepiórkowski'
 __email__ = 'mprzepiorkowski@gmail.com'
 
 
 class ScraperConfig:
-    def __init__(self, bus_lines: List[str], tram_lines: List[str]):
+    def __init__(self, bus_lines: [str], tram_lines: [str]):
         self._bus_lines = bus_lines
         self._tram_lines = tram_lines
 
     @property
-    def bus_lines(self) -> List[str]:
+    def bus_lines(self) -> [str]:
         return self._bus_lines
 
     @property
-    def tram_lines(self) -> List[str]:
+    def tram_lines(self) -> [str]:
         return self._tram_lines
 
 

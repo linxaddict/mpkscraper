@@ -3,7 +3,6 @@ import json
 import requests
 
 from config_reader import ScraperConfig
-from typing import Dict
 
 from model.api_vehicle_position import ApiVehiclePosition
 
@@ -16,7 +15,7 @@ class Scraper:
     KEY_BUS_LINE = 'busList[bus][]'
     KEY_TRAM_LINE = 'busList[tram][]'
 
-    def _prepare_form_data(self) -> Dict[str, str]:
+    def _prepare_form_data(self) -> {str, str}:
         data = {}
 
         if self.config.bus_lines:

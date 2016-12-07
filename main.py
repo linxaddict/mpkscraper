@@ -1,5 +1,4 @@
 import time
-from typing import List
 
 import pytz
 
@@ -39,7 +38,7 @@ def write_to_file(position: ApiVehiclePosition, velocity: float, ts: datetime, e
         file_out.write(line)
 
 
-def store_velocities(positions: List[ApiVehiclePosition]) -> None:
+def store_velocities(positions: [ApiVehiclePosition]) -> None:
     for p in positions:
         if not valid_position(p.latitude, p.longitude):
             continue
