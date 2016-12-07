@@ -1,4 +1,6 @@
 import time
+from typing import List
+
 import pytz
 
 from json import JSONDecodeError
@@ -37,6 +39,36 @@ def write_to_file(position: ApiVehiclePosition, velocity: float, ts: datetime, e
         file_out.write(line)
 
 
+def store_velocities(positions: List[ApiVehiclePosition]) -> None:
+    for p in positions:
+        if not valid_position(p.latitude, p.longitude):
+            continue
+
+        if p.id in last_positions:
+            lat, lon, dt = last_positions[p.id]
+            now = datetime.now()
+
+            if p.latitude != lat or p.longitude != lon:
+                last_positions[p.id] = (p.latitude, p.longitude, now)
+
+                distance = vincenty((lat, lon), (p.latitude, p.longitude)).meters
+                ts = (now - dt).total_seconds()
+
+                velocity_mps = distance / ts
+                velocity_kmph = velocity_mps * 3.6
+
+                print('[{0}:{1}] ({2}, {3}) {4:.2f} meters, {5:.2f} seconds, {6:.2f} km/h'.format(
+                    p.name, p.id, p.latitude, p.longitude, distance, ts, velocity_kmph))
+
+                if velocity_kmph > 100:
+                    print("last: ({0}, {1}), current: ({2}, {3})".format(lat, lon, p.latitude, p.longitude))
+
+                write_to_file(p, velocity_kmph, now)
+        else:
+            last_positions[p.id] = (p.latitude, p.longitude, datetime.now())
+            write_to_file(p, 0, datetime.now())
+
+
 if __name__ == '__main__':
     config_reader = JsonConfigReader()
     last_positions = {}
@@ -48,17 +80,6 @@ if __name__ == '__main__':
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    vp = VehiclePosition()
-    vp.latitude = 12.1
-    vp.longitude = 14.2
-    vp.name = 'test_name'
-    vp.type = 'test_type'
-    vp.vehicle_id = 'test_id'
-    vp.timestamp = datetime.now(pytz.timezone('Europe/Warsaw'))
-
-    session.add(vp)
-    session.commit()
-
     try:
         config = config_reader.read('config.json')
 
@@ -69,36 +90,21 @@ if __name__ == '__main__':
 
         while True:
             positions = scraper.fetch_positions()
+            # store_velocities(positions)
 
             for p in positions:
-                if not valid_position(p.latitude, p.longitude):
-                    continue
+                vp = VehiclePosition()
+                vp.latitude = p.latitude
+                vp.longitude = p.longitude
+                vp.name = p.name
+                vp.type = p.type
+                vp.vehicle_id = p.id
+                vp.timestamp = datetime.now(pytz.timezone('Europe/Warsaw'))
 
-                if p.id in last_positions:
-                    lat, lon, dt = last_positions[p.id]
-                    now = datetime.now()
+                session.add(vp)
+                session.commit()
 
-                    if p.latitude != lat or p.longitude != lon:
-                        last_positions[p.id] = (p.latitude, p.longitude, now)
-
-                        distance = vincenty((lat, lon), (p.latitude, p.longitude)).meters
-                        ts = (now - dt).total_seconds()
-
-                        velocity_mps = distance / ts
-                        velocity_kmph = velocity_mps * 3.6
-
-                        print('[{0}:{1}] ({2}, {3}) {4:.2f} meters, {5:.2f} seconds, {6:.2f} km/h'.format(
-                            p.name, p.id, p.latitude, p.longitude, distance, ts, velocity_kmph))
-
-                        if velocity_kmph > 100:
-                            print("last: ({0}, {1}), current: ({2}, {3})".format(lat, lon, p.latitude, p.longitude))
-
-                        write_to_file(p, velocity_kmph, now)
-                else:
-                    last_positions[p.id] = (p.latitude, p.longitude, datetime.now())
-                    write_to_file(p, 0, datetime.now())
-
-            time.sleep(5)
+            time.sleep(10)
     except FileNotFoundError:
         print('error: specified config file does not exist')
     except JSONDecodeError as err:
