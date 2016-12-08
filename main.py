@@ -1,3 +1,4 @@
+import logging
 import time
 
 import pytz
@@ -21,6 +22,8 @@ __email__ = 'mprzepiorkowski@gmail.com'
 
 MAX_LATITUDE_THRESHOLD = 90
 MAX_LONGITUDE_THRESHOLD = 180
+
+LOG_FORMAT = '%(asctime)-15s %(message)s'
 
 
 def valid_position(lat: float, lon: float) -> bool:
@@ -66,6 +69,14 @@ def store_velocities(positions: [ApiVehiclePosition]) -> None:
             write_to_file(p, 0, datetime.now())
 
 
+def initialize_logger(logger):
+    handler = logging.FileHandler('errors.log')
+    formatter = logging.Formatter(LOG_FORMAT)
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.WARNING)
+
+
 if __name__ == '__main__':
     config_reader = JsonConfigReader()
     last_positions = {}
@@ -77,15 +88,18 @@ if __name__ == '__main__':
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    try:
-        config = config_reader.read('config.json')
+    config = config_reader.read('config.json')
 
-        print('bus lines: {0}'.format(config.bus_lines))
-        print('tram lines: {0}'.format(config.tram_lines))
+    print('bus lines: {0}'.format(config.bus_lines))
+    print('tram lines: {0}'.format(config.tram_lines))
 
-        scraper = Scraper(config)
+    scraper = Scraper(config)
+    logger = logging.getLogger('mpk_scraper')
+    initialize_logger(logger)
 
-        while True:
+    while True:
+        # noinspection PyBroadException
+        try:
             positions = scraper.fetch_positions()
             # store_velocities(positions)
 
@@ -101,8 +115,12 @@ if __name__ == '__main__':
                 session.add(vp)
                 session.commit()
 
-            time.sleep(10)
-    except FileNotFoundError:
-        print('error: specified config file does not exist')
-    except ValueError as err:
-        print('error: unable to parse json file: {0}'.format(err))
+        except FileNotFoundError as err:
+            logger.exception('error: specified config file does not exist')
+        except ValueError as err:
+            print('error: unable to parse json file: {0}'.format(err))
+            logger.exception('error: unable to parse json file')
+        except Exception as err:
+            logger.exception('unknown error')
+
+        time.sleep(10)
