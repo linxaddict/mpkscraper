@@ -32,7 +32,6 @@ class Scraper:
     def fetch_positions(self) -> [ApiVehiclePosition]:
         form_data = self._prepare_form_data()
         r = requests.post(self.URL, form_data)
-        print('fetched: {0}'.format(r.text))
 
         return [ApiVehiclePosition(**p) for p in json.loads(r.text)]
 
