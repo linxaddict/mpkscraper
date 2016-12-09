@@ -3,7 +3,6 @@ import datetime
 from sqlalchemy import Column, Integer, Float, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
-
 __author__ = 'Marcin Przepiórkowski'
 __email__ = 'mprzepiorkowski@gmail.com'
 
@@ -20,3 +19,7 @@ class VehiclePosition(Base):
     longitude = Column(Float, nullable=False)
     vehicle_id = Column(String(128), nullable=False)
     timestamp = Column(DateTime(timezone=True), onupdate=datetime.datetime.now)
+
+    def __str__(self, *args, **kwargs):
+        return '{0},{1},{2},{3},{4},{5},{6}'.format(self.id, self.name, self.type, self.latitude, self.longitude,
+                                                    self.vehicle_id, self.timestamp)
