@@ -30,7 +30,7 @@ def upgrade():
         'line_stops',
         sa.Column('id', sa.INTEGER, primary_key=True, autoincrement=True),
         sa.Column('line_id', sa.String(128), nullable=False),
-        sa.Column('line_stop', sa.String(128), nullable=False)
+        sa.Column('line_name', sa.String(128), nullable=False)
     )
 
 

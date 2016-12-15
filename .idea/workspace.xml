@@ -4,7 +4,6 @@
     <list default="true" id="1d953f42-1907-488a-a9b2-4e5bf3fa0111" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/alembic/versions/44516a7495c7_added_new_models_for_stops.py" afterPath="$PROJECT_DIR$/alembic/versions/44516a7495c7_added_new_models_for_stops.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/line_stop.py" afterPath="$PROJECT_DIR$/model/line_stop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mpk_sqlite_reader.py" afterPath="$PROJECT_DIR$/mpk_sqlite_reader.py" />
     </list>
     <ignored path="mpkscraper.iws" />
@@ -19,7 +18,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/mpkscraper$main.coverage" NAME="main Coverage Results" MODIFIED="1481230925440" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/mpkscraper$mpk_sqlite_reader.coverage" NAME="mpk_sqlite_reader Coverage Results" MODIFIED="1481843098955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mpkscraper$mpk_sqlite_reader.coverage" NAME="mpk_sqlite_reader Coverage Results" MODIFIED="1481844067325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mpkscraper$ml.coverage" NAME="ml Coverage Results" MODIFIED="1481665489504" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -46,8 +45,8 @@
           <file leaf-file-name="mpk_sqlite_reader.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/mpk_sqlite_reader.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="774">
-                  <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+                <state relative-caret-position="295">
+                  <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
                   <folding>
                     <element signature="e#0#36#0" expanded="true" />
                   </folding>
@@ -130,8 +129,8 @@
           <file leaf-file-name="line_stop.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/model/line_stop.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+                <state relative-caret-position="360">
+                  <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#29#0" expanded="true" />
                   </folding>
@@ -156,8 +155,8 @@
           <file leaf-file-name="44516a7495c7_added_new_models_for_stops.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/alembic/versions/44516a7495c7_added_new_models_for_stops.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="540">
-                  <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+                <state relative-caret-position="594">
+                  <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
                   <folding>
                     <element signature="e#124#146#0" expanded="true" />
                   </folding>
@@ -247,10 +246,10 @@
         <option value="$PROJECT_DIR$/model/vehicle_position.py" />
         <option value="$PROJECT_DIR$/model/stop.py" />
         <option value="$PROJECT_DIR$/alembic/versions/cc5a89f93aa8_changed_column_names_in_the_line_stop_.py" />
-        <option value="$PROJECT_DIR$/mpk_sqlite_reader.py" />
         <option value="$PROJECT_DIR$/model/mpk/line_stop.py" />
         <option value="$PROJECT_DIR$/model/mpk/stop.py" />
         <option value="$PROJECT_DIR$/model/line_stop.py" />
+        <option value="$PROJECT_DIR$/mpk_sqlite_reader.py" />
         <option value="$PROJECT_DIR$/alembic/versions/44516a7495c7_added_new_models_for_stops.py" />
       </list>
     </option>
@@ -1046,16 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mpk_sqlite_reader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="774">
-          <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/stop.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1102,16 +1091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/line_stop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/vehicle_position.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1120,10 +1099,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/mpk_sqlite_reader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="60" column="29" selection-start-line="60" selection-start-column="29" selection-end-line="60" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/line_stop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/alembic/versions/44516a7495c7_added_new_models_for_stops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="30" column="44" selection-start-line="30" selection-start-column="44" selection-end-line="30" selection-end-column="44" />
+        <state relative-caret-position="594">
+          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="e#124#146#0" expanded="true" />
           </folding>
