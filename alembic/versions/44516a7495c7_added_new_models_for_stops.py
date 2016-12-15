@@ -28,8 +28,9 @@ def upgrade():
 
     op.create_table(
         'line_stops',
-        sa.Column('id', sa.String(128), primary_key=True),
-        sa.Column('line', sa.String(128), nullable=False)
+        sa.Column('id', sa.INTEGER, primary_key=True, autoincrement=True),
+        sa.Column('line_id', sa.String(128), nullable=False),
+        sa.Column('line_stop', sa.String(128), nullable=False)
     )
 
 
