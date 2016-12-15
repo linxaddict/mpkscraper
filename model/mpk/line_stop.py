@@ -8,7 +8,7 @@ __email__ = 'mprzepiorkowski@gmail.com'
 Base = declarative_base()
 
 
-class LineStop(Base):
+class MpkLineStop(Base):
     __tablename__ = 'post_lines'
 
     id = Column(String(128), primary_key=True, name='symbol')

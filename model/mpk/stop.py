@@ -9,7 +9,7 @@ __email__ = 'mprzepiorkowski@gmail.com'
 Base = declarative_base()
 
 
-class Stop(Base):
+class MpkStop(Base):
     __tablename__ = 'stops'
 
     id = Column(String(128), primary_key=True, name='symbol')

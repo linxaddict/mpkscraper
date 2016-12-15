@@ -2,8 +2,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from model.mpk.line_stop import LineStop
-from model.mpk.stop import Stop
+from model.mpk.line_stop import MpkLineStop
+from model.mpk.stop import MpkStop
 
 __author__ = 'Marcin Przepiórkowski'
 __email__ = 'mprzepiorkowski@gmail.com'
@@ -18,7 +18,7 @@ def read_stops(sqlite_db):
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    return session.query(Stop).all()
+    return session.query(MpkStop).all()
 
 
 def read_line_stops(sqlite_db):
@@ -30,7 +30,7 @@ def read_line_stops(sqlite_db):
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    return session.query(LineStop).all()
+    return session.query(MpkLineStop).all()
 
 if __name__ == '__main__':
     for s in read_stops('/home/marcin/mpk.sqlite'):
