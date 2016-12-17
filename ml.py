@@ -9,6 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 from line_analyser import LineAnalyser
+from model.line_stop import LineStop
+from model.stop import Stop
 from model.vehicle_position import VehiclePosition
 from model.vehicle_state import VehicleState
 from settings import Config
@@ -73,7 +75,6 @@ def remove_redundant_states(states: [VehicleState]) -> [VehicleState]:
 
     return results
 
-
 if __name__ == '__main__':
     engine = create_engine(Config.DB_URI)
 
@@ -83,15 +84,19 @@ if __name__ == '__main__':
     DBSession = sessionmaker(bind=engine)
     session = DBSession()
 
-    today = session.query(VehiclePosition).filter(
-        and_(VehiclePosition.name == '8', cast(VehiclePosition.timestamp, Date) == datetime.date.today())).all()
-    # today = filter_today_with_line_name(rows, '8')
+    q = session.query(LineStop, Stop).join(Stop).all()
+    for r in q:
+        print('{}'.format(r))
 
-    analyser = LineAnalyser()
-    courses = analyser.extract_courses('8', today)
+    # today = session.query(VehiclePosition).filter(
+    #     and_(VehiclePosition.name == '8', cast(VehiclePosition.timestamp, Date) == datetime.date.today())).all()
+    # # today = filter_today_with_line_name(rows, '8')
+    #
+    # analyser = LineAnalyser()
+    # courses = analyser.extract_courses('8', today)
 
-    for c in courses:
-        print('{}'.format(c))
+    # for c in courses:
+    #     print('{}'.format(c))
 
         # states = compute_velocities(today)
         #

@@ -57,7 +57,7 @@ if __name__ == '__main__':
         stop_counter += 1
 
     for ls in read_line_stops('/home/marcin/mpk.sqlite'):
-        for line in [s for s in ls.lines.split() if s]:
+        for line in [s.replace(',', '') for s in ls.lines.split() if s]:
             line_stop = LineStop(line_id=ls.id, line_name=line)
             session.add(line_stop)
 
